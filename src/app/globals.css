@@ -1,26 +1,41 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-iransans);
+  font-feature-settings: "kern";
+}
+@theme {
+    --font-sans: var(--font-iransans), ui-sans-serif, system-ui, sans-serif;
+  /* پس‌زمینه و سطح‌ها (مشکی مایل به سبز) */
+  --color-bg: #0b0d0c;
+  --color-surface: #101412;
+  --color-surface-2: #151b18;
+  --color-border: #1d2622;
+
+  --color-fg: #ecf0ee;
+  --color-muted: #8f9b95;
+
+  /* سبز: forest همون #115234 خودته، برای سطح‌ها و گلو */
+  --color-forest: #115234;
+  --color-brand-dark: #115234;
+  /* تینت روشن‌تر همین سبز، برای متن و آیکون ریز (روی مشکی خوانا) */
+  --color-brand: #2a9d6b;
+
+  /* طلایی */
+  --color-gold: #c6a15b;
+  --color-gold-light: #d6b676;
+
+  --color-danger: #e5484d;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
+::selection {
+  background: rgba(198, 161, 91, 0.35);
 }

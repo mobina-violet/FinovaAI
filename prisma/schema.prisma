@@ -1,0 +1,157 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+enum TransactionType {
+  INCOME
+  EXPENSE
+}
+
+enum ChequeType {
+  RECEIVABLE // چک دریافتی
+  PAYABLE    // چک پرداختی
+}
+
+enum ChequeStatus {
+  PENDING
+  CLEARED
+  BOUNCED
+  CANCELLED
+}
+
+enum NotificationChannel {
+  IN_APP
+  SMS
+  EMAIL
+}
+
+model User {
+  id        String   @id @default(cuid())
+  phone     String   @unique
+  name      String?
+  email     String?  @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  business      Business[]
+  otpCodes      OtpCode[]
+  sessions      Session[]
+}
+
+model OtpCode {
+  id        String   @id @default(cuid())
+  phone     String
+  codeHash  String
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+
+  @@index([phone, expiresAt])
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Business {
+  id        String   @id @default(cuid())
+  name      String
+  category  String?  // مثلا: کتاب‌فروشی
+  ownerId   String
+  createdAt DateTime @default(now())
+
+  owner         User           @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  categories    Category[]
+  transactions  Transaction[]
+  cheques       Cheque[]
+  notifications Notification[]
+  chatMessages  ChatMessage[]
+
+  @@index([ownerId])
+}
+
+model Category {
+  id         String          @id @default(cuid())
+  businessId String
+  name       String
+  type       TransactionType
+
+  business     Business      @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+
+  @@unique([businessId, name, type])
+}
+
+model Transaction {
+  id          String          @id @default(cuid())
+  businessId  String
+  categoryId  String?
+  type        TransactionType
+  amount      BigInt          // به تومان، بدون اعشار
+  quantity    Int?            // مثلا تعداد کتاب فروخته‌شده
+  description String?
+  occurredAt  DateTime        @default(now())
+  createdAt   DateTime        @default(now())
+
+  business Business  @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  category Category? @relation(fields: [categoryId], references: [id])
+
+  @@index([businessId, occurredAt])
+}
+
+model Cheque {
+  id         String       @id @default(cuid())
+  businessId String
+  type       ChequeType
+  amount     BigInt
+  dueDate    DateTime
+  partyName  String?      // طرف حساب
+  bank       String?
+  number     String?
+  status     ChequeStatus @default(PENDING)
+  createdAt  DateTime     @default(now())
+
+  business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  @@index([businessId, dueDate, status])
+}
+
+model Notification {
+  id         String              @id @default(cuid())
+  businessId String
+  title      String
+  body       String
+  channel    NotificationChannel @default(IN_APP)
+  sendAt     DateTime
+  sentAt     DateTime?
+  readAt     DateTime?
+  createdAt  DateTime            @default(now())
+
+  business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  @@index([businessId, sendAt])
+}
+
+model ChatMessage {
+  id         String   @id @default(cuid())
+  businessId String
+  role       String   // "user" | "assistant"
+  content    String
+  createdAt  DateTime @default(now())
+
+  business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  @@index([businessId, createdAt])
+}
