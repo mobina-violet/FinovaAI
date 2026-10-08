@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 //FONT IRAN SANS
-
 const iranSans = localFont({
   src: "../fonts/A-Iranian-Sans/Iranian Sans.ttf",
   variable: "--font-iransans",

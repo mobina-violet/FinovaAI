@@ -10,7 +10,7 @@ const links = [
   { id: "features", label: "ویژگی‌ها" },
   { id: "insights", label: "بینش مالی" },
   { id: "about", label: "درباره ما" },
-  { id: "insights", label: "دیدگاه فینوا" },//جای کلمه مقالات
+  { id: "insights", label: "دیدگاه فینوا" }, //جای کلمه مقالات
 ];
 
 export default function Header() {
@@ -53,11 +53,11 @@ export default function Header() {
       }`}>
       <div className="mx-auto flex h-[76px] max-w-6xl items-center justify-between px-4 sm:px-6">
         {/* Logo */}
-        <Link href="/" className="group flex shrink-0 items-center gap-3">
+        <Link href="/" className="group flex shrink-0 items-center gap-0">
           <div className="relative">
             <div className="absolute inset-0 rounded-full bg-gold/20 blur-md opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             <Image
-              src="/logo.webp"
+              src="/images/logo.webp"
               alt="لوگوی FinovaAI"
               width={48}
               height={48}
@@ -66,11 +66,11 @@ export default function Header() {
               priority
             />
           </div>
-          <div className="leading-tight">
+          <div className="-mr-1 leading-tight">
             <p className="text-lg font-bold tracking-wide text-brand">
               Finova<span className="text-gold">AI</span>
             </p>
-            <p className="hidden text-[11px] font-medium text-gold/80 sm:block">
+            <p className="hidden text-[10px] font-medium text-gold/80 sm:block">
               Your Smart Financial Assistant
             </p>
           </div>
