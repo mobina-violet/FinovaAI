@@ -5,7 +5,7 @@ body {
   font-feature-settings: "kern";
 }
 @theme {
-    --font-sans: var(--font-iransans), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-iransans), ui-sans-serif, system-ui, sans-serif;
   /* پس‌زمینه و سطح‌ها (مشکی مایل به سبز) */
   --color-bg: #0b0d0c;
   --color-surface: #101412;
@@ -38,4 +38,34 @@ section[id] {
 
 ::selection {
   background: rgba(198, 161, 91, 0.35);
+}
+/* کارت شیشه‌ای با رگه‌ی سبز */
+@utility glass {
+  background: linear-gradient(
+    135deg,
+    rgba(34, 92, 66, 0.24),
+    rgba(255, 255, 255, 0.025)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* پس‌زمینه‌ی نورانی سبز/طلایی */
+@utility bg-ambient {
+  background-image:
+    radial-gradient(60% 50% at 85% 0%, rgba(17, 82, 52, 0.55), transparent 70%),
+    radial-gradient(
+      45% 40% at 0% 100%,
+      rgba(17, 82, 52, 0.35),
+      transparent 70%
+    ),
+    radial-gradient(
+      30% 25% at 50% 55%,
+      rgba(198, 161, 91, 0.06),
+      transparent 70%
+    );
 }
