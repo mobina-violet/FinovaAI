@@ -23,12 +23,12 @@ export default async function AuthPage() {
           aria-label="Finova AI - صفحه اصلی"
           className="mb-8 flex justify-center">
           <Image
-            src="/logo.webp"
+            src="/images/logo.webp"
             alt="Finova AI"
-            width={480}
-            height={144}
+            width={96}
+            height={105}
             priority
-            className="h-10 w-auto"
+            className="h-11 w-auto"
           />
         </Link>
 

@@ -57,11 +57,12 @@ function SidebarContent({
         aria-label="Finova AI"
         className="mb-6 flex justify-center px-2 pt-1">
         <Image
-          src="/logo.webp"
+          src="/images/logo.webp"
           alt="Finova AI"
-          width={480}
-          height={144}
-          className="h-9 w-auto"
+          width={96}
+          height={105}
+          priority
+          className="h-11 w-auto"
         />
       </Link>
 

@@ -17,7 +17,7 @@ export default function CtaBanner() {
           </div>
 
           <a
-            href="tel:091213145"
+            href="tel:09121314567"
             className="inline-flex shrink-0 items-center gap-2 rounded-full bg-gold px-7 py-3 font-semibold text-bg transition hover:brightness-110">
             تماس با ما
             <Phone size={18} />

@@ -22,12 +22,12 @@ export default async function OnboardingPage() {
       <div className="relative w-full max-w-[460px]">
         <div className="mb-8 flex justify-center">
           <Image
-            src="/logo.png"
+            src="/images/logo.webp"
             alt="Finova AI"
-            width={480}
-            height={144}
+            width={96}
+            height={105}
             priority
-            className="h-10 w-auto"
+            className="h-11 w-auto"
           />
         </div>
 
