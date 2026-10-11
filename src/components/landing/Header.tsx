@@ -48,7 +48,9 @@ export default function Header({
   }, [onHome]);
 
   const isActive = (l: NavLink) =>
-    l.kind === "section" ? onHome && active === l.id : pathname.startsWith(l.href);
+    l.kind === "section"
+      ? onHome && active === l.id
+      : pathname.startsWith(l.href);
 
   return (
     <header
@@ -74,10 +76,10 @@ export default function Header({
             />
           </div>
           <div className="leading-tight">
-            <p className="text-lg font-bold tracking-wide text-brand">
-              Finova<span className="text-gold">AI</span>
+            <p className="text-lg font-bold tracking-wide text-brand radley">
+              Finova<span className="text-gold radley">AI</span>
             </p>
-            <p className="hidden text-[11px] font-medium text-gold/80 sm:block">
+            <p className="hidden text-[11px] font-medium text-gold/80 sm:block radley">
               Your Smart Financial Assistant
             </p>
           </div>
@@ -150,7 +152,9 @@ export default function Header({
                       : "text-white/70 hover:bg-white/5 hover:text-white"
                   }`}>
                   {l.label}
-                  {current && <span className="h-1.5 w-1.5 rounded-full bg-gold" />}
+                  {current && (
+                    <span className="h-1.5 w-1.5 rounded-full bg-gold" />
+                  )}
                 </Link>
               );
             })}

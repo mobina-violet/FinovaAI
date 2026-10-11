@@ -1,11 +1,9 @@
-
 import type { Metadata } from "next";
-import { Eye, Sparkles, ShieldCheck } from "lucide-react";
-
+import { ArrowDown, Quote } from "lucide-react";
 import Header from "@/components/landing/Header";
 import Footer from "@/components/landing/Footer";
 import CtaBanner from "@/components/landing/CtaBanner";
-import PageHero from "@/components/ui/PageHero";
+import AmbientBackground from "@/components/ui/AmbientBackground";
 import ArticleExplorer from "./ArticleExplorer";
 
 export const metadata: Metadata = {
@@ -16,19 +14,19 @@ export const metadata: Metadata = {
 
 const principles = [
   {
-    icon: Sparkles,
+    n: "۰۱",
     title: "ساده بگو، ساده ثبت کن",
-    text: "مدیریت مالی نباید به دانش حسابداری نیاز داشته باشد. همان‌طور که حرف می‌زنید بنویسید؛ بقیه‌اش با دستیار.",
+    text: "مدیریت مالی نباید دانش حسابداری بخواهد. همان‌طور که حرف می‌زنید بنویسید.",
   },
   {
-    icon: Eye,
+    n: "۰۲",
     title: "داده را به تصمیم تبدیل کن",
-    text: "عدد به‌تنهایی کمکی نمی‌کند. ما داده‌های شما را به نکته‌هایی تبدیل می‌کنیم که می‌شود طبق آن‌ها عمل کرد.",
+    text: "عدد به‌تنهایی کمکی نمی‌کند؛ نکته‌ای که بشود طبقش عمل کرد، چرا.",
   },
   {
-    icon: ShieldCheck,
+    n: "۰۳",
     title: "شفاف و قابل‌اعتماد",
-    text: "هوش مصنوعی پیشنهاد می‌دهد، تصمیم با شماست. اطلاعات مالی‌تان فقط برای حساب خودتان قابل دسترسی است.",
+    text: "هوش مصنوعی پیشنهاد می‌دهد، تصمیم با شماست. داده‌هایتان فقط برای خودتان.",
   },
 ];
 
@@ -36,81 +34,74 @@ export default function InsightsPage() {
   return (
     <>
       <Header />
-
       <main dir="rtl">
-        <PageHero
-          eyebrow="دیدگاه فینوا"
-          title={
-            <>
-              نگاهی{" "}
-              <span className="bg-gradient-to-l from-gold-light to-gold bg-clip-text text-transparent">
-                هوشمندانه‌تر
-              </span>{" "}
-              به مالی کسب‌وکار
-            </>
-          }
-          description="ما باور داریم هر کسب‌وکار کوچکی لایق ابزاری است که مالی را ساده کند و تصمیم‌گیری را روشن. اینجا درباره‌ی نگاه‌مان و چیزهایی که در مسیر یاد می‌گیریم می‌نویسیم."
-        />
-
-        {/* اصول و فلسفه */}
-        <section className="border-b border-border py-12 sm:py-14">
-          <div className="mx-auto max-w-6xl px-4">
-            <div className="mb-8 text-center">
-              <p className="text-xs font-medium text-brand">
-                رویکرد ما
+        {/* هیرو: متن + نقل‌قول */}
+        <section className="relative isolate overflow-hidden">
+          <AmbientBackground />
+          <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 pb-14 pt-32 lg:grid-cols-[1.1fr_1fr] lg:gap-14 lg:pb-16 lg:pt-36">
+            <div>
+              <span className="inline-flex items-center gap-2 rounded-full border border-gold/30 px-3 py-1 text-[11px] text-brand">
+                <span className="h-1.5 w-1.5 rounded-full bg-brand" />
+                دیدگاه فینوا
+              </span>
+              <h1 className="mt-5 text-3xl font-bold leading-[1.7] sm:text-4xl sm:leading-[1.7]">
+                نگاهی{" "}
+                <span className="bg-gradient-to-l from-gold-light to-gold bg-clip-text text-transparent">
+                  هوشمندانه‌تر
+                </span>
+                <br />
+                به مالی کسب‌وکار
+              </h1>
+              <p className="mt-4 max-w-md text-sm leading-8 text-muted">
+                باور داریم هر کسب‌وکار کوچکی لایق ابزاری است که مالی را ساده کند و تصمیم‌گیری را
+                روشن. اینجا درباره‌ی نگاه‌مان و چیزهایی که در مسیر یاد می‌گیریم می‌نویسیم.
               </p>
-
-              <h2 className="mt-2 text-xl font-bold leading-9 sm:text-2xl">
-                سه اصل که Finova AI بر آن‌ها ساخته شده
-              </h2>
+              <a
+                href="#articles"
+                className="mt-6 inline-flex items-center gap-2 rounded-lg bg-gold px-5 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-gold-light">
+                مطالعه‌ی مقاله‌ها
+                <ArrowDown size={15} />
+              </a>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-3">
-              {principles.map(({ icon: Icon, title, text }) => (
-                <div
-                  key={title}
-                  className="rounded-2xl border border-border bg-surface p-5 text-right transition-colors hover:border-brand/50 sm:p-6"
-                >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand/15 text-brand">
-                    <Icon size={20} />
-                  </div>
+            <figure className="glass relative rounded-2xl p-6 sm:p-8">
+              <Quote size={26} className="text-gold/70" />
+              <blockquote className="mt-4 text-lg font-medium leading-10 sm:text-xl sm:leading-[2.6rem]">
+                هدف این نیست که عددهای بیشتری ببینید؛ هدف این است که بدانید با کدام عدد باید کاری
+                کرد.
+              </blockquote>
+              <figcaption className="mt-5 flex items-center gap-3 text-xs text-muted">
+                <span className="h-px w-8 bg-gold/60" />
+                تیم Finova AI
+              </figcaption>
+            </figure>
+          </div>
+        </section>
 
-                  <h3 className="mt-4 text-base font-bold leading-7">
-                    {title}
-                  </h3>
-
-                  <p className="mt-2 text-sm leading-7 text-muted">
-                    {text}
-                  </p>
-                </div>
-              ))}
-            </div>
+        {/* سه اصل: یک نوار، نه سه کارت */}
+        <section className="border-y border-border bg-surface/40">
+          <div className="mx-auto grid max-w-6xl px-4 md:grid-cols-3">
+            {principles.map((p) => (
+              <div
+                key={p.n}
+                className="border-b border-border px-1 py-6 last:border-b-0 md:border-b-0 md:px-6 md:first:ps-0 md:last:pe-0 md:not-first:border-s">
+                <span className="text-xs font-bold text-gold">{p.n}</span>
+                <h3 className="mt-2 text-sm font-bold">{p.title}</h3>
+                <p className="mt-1.5 text-xs leading-6 text-muted">{p.text}</p>
+              </div>
+            ))}
           </div>
         </section>
 
         {/* مقاله‌ها */}
-        <section
-          id="articles"
-          className="border-b border-border py-12 sm:py-14"
-        >
+        <section id="articles" className="pb-4 pt-12 sm:pt-14">
           <div className="mx-auto max-w-6xl px-4">
-            <div className="mb-7 text-center">
-              <p className="text-xs font-medium text-brand">
-                بینش مالی
-              </p>
-
-              <h2 className="mt-2 text-xl font-bold leading-9 sm:text-2xl">
-                نکته‌هایی برای تصمیم‌های بهتر
-              </h2>
-            </div>
-
             <ArticleExplorer />
           </div>
         </section>
 
         <CtaBanner />
       </main>
-
       <Footer />
     </>
   );

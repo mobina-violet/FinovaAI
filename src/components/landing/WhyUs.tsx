@@ -16,7 +16,7 @@ export default function WhyUs() {
         <div>
           <p className="text-xs text-gold">چرا باید ما را انتخاب کنید؟</p>
           <h2 className="mt-3 text-3xl font-bold">
-            یک قدم جلوتر با <span className="text-brand">Finova AI</span>
+            یک قدم جلوتر با <span className="text-brand radley">FinovaAI</span>
           </h2>
           <p className="mt-5 leading-8 text-muted">
             ما در Finova AI با هدف ساده‌سازی مدیریت مالی کسب‌وکارها و کمک به رشد

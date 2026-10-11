@@ -44,37 +44,28 @@ export default function Footer() {
         <div className="grid gap-10 py-12 md:grid-cols-[1.3fr_1fr] md:items-start md:gap-16 md:py-16">
           {/* برند و توضیحات */}
           <div className="flex flex-col items-start gap-5">
-            <Link
-              href="/"
-              aria-label="صفحه اصلی FinovaAI"
-              className="group inline-flex items-center gap-3 rounded-xl">
-              <div className="relative flex h-12 w-12 shrink-0 items-center justify-center">
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-0 rounded-full bg-emerald-400/10 opacity-0 blur-lg transition-opacity duration-300 group-hover:opacity-100"
-                />
-                <Image
-                  src="/images/logo.webp"
-                  alt=""
-                  width={48}
-                  height={48}
-                  className="relative h-12 w-12 object-contain"
-                />
-              </div>
-
-              <div className="flex flex-col gap-1">
-                <span
-                  dir="ltr"
-                  className="text-xl font-bold tracking-tight text-white">
-                  Finova<span className="text-emerald-400">AI</span>
-                </span>
-                <span
-                  dir="ltr"
-                  className="text-[10px] font-medium tracking-wide text-white/45">
-                  Your Smart Financial Assistant
-                </span>
-              </div>
-            </Link>
+        <Link href="/" className="group flex shrink-0 items-center gap-3">
+          <div className="relative">
+            <div className="absolute inset-0 rounded-full bg-gold/20 opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-100" />
+            <Image
+              src="/images/logo.webp"
+              alt="لوگوی FinovaAI"
+              width={48}
+              height={48}
+              quality={90}
+              className="relative h-12 w-12 object-contain drop-shadow-[0_0_12px_rgba(212,175,55,0.3)]"
+              priority
+            />
+          </div>
+          <div className="leading-tight">
+            <p className="text-lg font-bold tracking-wide text-brand radley">
+              Finova<span className="text-gold radley">AI</span>
+            </p>
+            <p className="hidden text-[11px] font-medium text-gold/80 sm:block radley">
+              Your Smart Financial Assistant
+            </p>
+          </div>
+        </Link>
 
             <p className="max-w-md text-sm leading-8 text-white/55">
               مدیریت هوشمند امور مالی کسب‌وکار؛ شفاف‌تر ببینید، دقیق‌تر تحلیل

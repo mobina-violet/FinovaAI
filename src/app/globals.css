@@ -1,8 +1,21 @@
 @import "tailwindcss";
 
 body {
-  font-family: var(--font-iransans);
+  font-family: var(--font-sans);
   font-feature-settings: "kern";
+}
+
+.radley {
+  font-family: "Radley", serif;
+}
+
+/* فونت انگلیسی Radley */
+@font-face {
+  font-family: "Radley";
+  src: url("/fonts/Radley/Radley-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 @theme {
   --font-sans: var(--font-iransans), ui-sans-serif, system-ui, sans-serif;
@@ -103,12 +116,7 @@ section[id] {
   padding: 0.65rem;
   border: 1px solid rgba(237, 245, 239, 0.25);
   border-radius: 1.5rem 1.5rem 0.8rem 0.8rem;
-  background: linear-gradient(
-    140deg,
-    #334039 0%,
-    #111a15 21%,
-    #050806 100%
-  );
+  background: linear-gradient(140deg, #334039 0%, #111a15 21%, #050806 100%);
 
   box-shadow:
     -24px 30px 66px rgba(0, 0, 0, 0.46),
@@ -131,12 +139,7 @@ section[id] {
   left: -4%;
   border-radius: 0 0 1.5rem 1.5rem;
 
-  background: linear-gradient(
-    90deg,
-    #0a0d0b,
-    #4b5851 48%,
-    #101511
-  );
+  background: linear-gradient(90deg, #0a0d0b, #4b5851 48%, #101511);
 
   box-shadow: 0 12px 12px rgba(0, 0, 0, 0.44);
 }

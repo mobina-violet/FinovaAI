@@ -29,8 +29,8 @@ export default function Features() {
       <div className="mx-auto max-w-6xl px-4">
         <div className="text-center">
           <p className="text-xs text-brand">ویژگی‌های اصلی</p>
-          <h2 className="mt-3 text-3xl font-bold">
-            چرا <span dir="ltr" className="inline-block">Finova <span className="text-brand">AI</span></span>؟
+          <h2 className="mt-3 text-3xl font-bold radley">
+            چرا <span dir="ltr" className="inline-block">Finova<span className="text-brand">AI</span></span>؟
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-sm leading-7 text-muted">
             ما با ترکیب قدرت هوش مصنوعی و داده‌های واقعی کسب‌وکار شما، به شما کمک می‌کنیم تا
