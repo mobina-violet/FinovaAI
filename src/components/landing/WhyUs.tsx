@@ -11,7 +11,7 @@ const points = [
 
 export default function WhyUs() {
   return (
-    <section className="border-b border-border bg-surface/40 py-20">
+    <section id="about" className="border-b border-border bg-surface/40 py-20">
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 md:grid-cols-2">
         <div>
           <p className="text-xs text-gold">چرا باید ما را انتخاب کنید؟</p>
