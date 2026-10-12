@@ -11,10 +11,17 @@ import {
 } from "lucide-react";
 import QuickEntry from "@/components/dashboard/QuickEntry";
 import { getCategoryOptions, requireBusiness } from "@/lib/business";
-import { getDashboardData, type MonthPoint, type Slice } from "@/lib/dashboard-data";
+import {
+  getDashboardData,
+  type MonthPoint,
+  type Slice,
+} from "@/lib/dashboard-data";
 import { formatDate, formatNumber } from "@/lib/format";
 
-export const metadata = { title: "داشبورد | Finova AI" };
+export const metadata = {
+  title: "داشبورد | FinovaAI",
+  robots: { index: false, follow: false },
+};
 
 const SLICE_COLORS = ["#c6a15b", "#2a9d6b", "#1c7a52", "#8f9b95", "#e5484d"];
 
@@ -59,7 +66,8 @@ function StatCard({
     <div className="glass rounded-2xl p-5">
       <div className="flex items-center justify-between">
         <span className="text-sm text-muted">{label}</span>
-        <span className={`flex h-9 w-9 items-center justify-center rounded-xl bg-white/5 ${color}`}>
+        <span
+          className={`flex h-9 w-9 items-center justify-center rounded-xl bg-white/5 ${color}`}>
           {icon}
         </span>
       </div>
@@ -86,7 +94,9 @@ function CashflowChart({ months }: { months: MonthPoint[] }) {
           />
         ))}
         {months.map((m) => (
-          <div key={m.label} className="relative flex h-full flex-1 items-end justify-center gap-1">
+          <div
+            key={m.label}
+            className="relative flex h-full flex-1 items-end justify-center gap-1">
             <div
               title={`درآمد: ${formatNumber(m.income)} تومان`}
               style={{ height: `${(m.income / max) * 100}%`, minHeight: 3 }}
@@ -107,7 +117,9 @@ function CashflowChart({ months }: { months: MonthPoint[] }) {
       </div>
       <div className="mt-2 flex justify-between gap-3">
         {months.map((m) => (
-          <span key={m.label} className="flex-1 text-center text-[11px] text-muted">
+          <span
+            key={m.label}
+            className="flex-1 text-center text-[11px] text-muted">
             {m.label}
           </span>
         ))}
@@ -148,8 +160,7 @@ function Donut({ slices }: { slices: Slice[] }) {
     <div className="flex flex-col items-center gap-5">
       <div
         className="relative h-36 w-36 rounded-full"
-        style={{ background: `conic-gradient(${stops})` }}
-      >
+        style={{ background: `conic-gradient(${stops})` }}>
         <div className="absolute inset-5 flex flex-col items-center justify-center rounded-full bg-[#0d1512]">
           <span className="text-[11px] text-muted">کل هزینه</span>
           <span className="text-sm font-semibold">{formatNumber(total)}</span>
@@ -165,7 +176,9 @@ function Donut({ slices }: { slices: Slice[] }) {
               />
               {s.name}
             </span>
-            <span className="text-muted">{formatNumber(Math.round((s.value / total) * 100))}٪</span>
+            <span className="text-muted">
+              {formatNumber(Math.round((s.value / total) * 100))}٪
+            </span>
           </li>
         ))}
       </ul>
@@ -179,14 +192,27 @@ export default async function DashboardPage() {
     getDashboardData(business.id),
     getCategoryOptions(business.id),
   ]);
-  const { current, months, slices, recent, cheques, insights, totalCount, soldUnits } = data;
+  const {
+    current,
+    months,
+    slices,
+    recent,
+    cheques,
+    insights,
+    totalCount,
+    soldUnits,
+  } = data;
   const net = current.income - current.expense;
 
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-xl font-bold">سلام{user.name ? `، ${user.name}` : ""} 👋</h1>
-        <p className="mt-1 text-sm text-muted">خلاصه‌ی وضعیت مالی «{business.name}» در این ماه</p>
+        <h1 className="text-xl font-bold">
+          سلام{user.name ? `، ${user.name}` : ""} 👋
+        </h1>
+        <p className="mt-1 text-sm text-muted">
+          خلاصه‌ی وضعیت مالی «{business.name}» در این ماه
+        </p>
       </div>
 
       <QuickEntry categories={categories} />
@@ -195,7 +221,9 @@ export default async function DashboardPage() {
         <StatCard
           label="درآمد این ماه"
           value={formatNumber(current.income)}
-          hint={soldUnits > 0 ? `${formatNumber(soldUnits)} واحد فروش` : "ماه جاری"}
+          hint={
+            soldUnits > 0 ? `${formatNumber(soldUnits)} واحد فروش` : "ماه جاری"
+          }
           color="text-brand"
           icon={<TrendingUp size={18} />}
         />
@@ -224,7 +252,10 @@ export default async function DashboardPage() {
       </div>
 
       <div className="grid gap-4 xl:grid-cols-3">
-        <Card title="درآمد و هزینه، ۶ ماه اخیر" icon={<BarChart3 size={16} />} className="xl:col-span-2">
+        <Card
+          title="درآمد و هزینه، ۶ ماه اخیر"
+          icon={<BarChart3 size={16} />}
+          className="xl:col-span-2">
           <CashflowChart months={months} />
         </Card>
         <Card title="توزیع هزینه‌ها" icon={<PieChart size={16} />}>
@@ -233,7 +264,10 @@ export default async function DashboardPage() {
       </div>
 
       <div className="grid gap-4 xl:grid-cols-3">
-        <Card title="آخرین تراکنش‌ها" icon={<Receipt size={16} />} className="xl:col-span-2">
+        <Card
+          title="آخرین تراکنش‌ها"
+          icon={<Receipt size={16} />}
+          className="xl:col-span-2">
           {recent.length === 0 ? (
             <p className="py-8 text-center text-sm text-muted">
               هنوز تراکنشی ثبت نشده است. از کادر «ثبت سریع» بالا شروع کنید.
@@ -251,17 +285,23 @@ export default async function DashboardPage() {
                 </thead>
                 <tbody>
                   {recent.map((t) => (
-                    <tr key={t.id} className="border-b border-white/[0.05] last:border-0">
-                      <td className="py-3 text-xs text-muted">{formatDate(t.occurredAt)}</td>
-                      <td className="max-w-[220px] truncate py-3">
-                        {t.description || (t.type === "INCOME" ? "درآمد" : "هزینه")}
+                    <tr
+                      key={t.id}
+                      className="border-b border-white/[0.05] last:border-0">
+                      <td className="py-3 text-xs text-muted">
+                        {formatDate(t.occurredAt)}
                       </td>
-                      <td className="py-3 text-xs text-muted">{t.category?.name ?? "—"}</td>
+                      <td className="max-w-[220px] truncate py-3">
+                        {t.description ||
+                          (t.type === "INCOME" ? "درآمد" : "هزینه")}
+                      </td>
+                      <td className="py-3 text-xs text-muted">
+                        {t.category?.name ?? "—"}
+                      </td>
                       <td
                         className={`py-3 text-end font-semibold ${
                           t.type === "INCOME" ? "text-brand" : "text-danger"
-                        }`}
-                      >
+                        }`}>
                         {t.type === "INCOME" ? "+" : "−"}
                         {formatNumber(t.amount)}
                       </td>
@@ -288,20 +328,24 @@ export default async function DashboardPage() {
           <Card title="اعلان‌ها و سررسیدها" icon={<BellRing size={16} />}>
             {cheques.length === 0 ? (
               <p className="text-sm leading-7 text-muted">
-                هنوز چکی ثبت نشده است. چک‌های نزدیک به سررسید اینجا هشدار داده می‌شوند.
+                هنوز چکی ثبت نشده است. چک‌های نزدیک به سررسید اینجا هشدار داده
+                می‌شوند.
               </p>
             ) : (
               <ul className="space-y-2">
                 {cheques.map((c) => (
                   <li
                     key={c.id}
-                    className="flex items-center justify-between gap-3 rounded-xl bg-white/[0.04] px-3 py-2.5"
-                  >
+                    className="flex items-center justify-between gap-3 rounded-xl bg-white/[0.04] px-3 py-2.5">
                     <div className="min-w-0">
                       <p className="truncate text-sm">
-                        {c.partyName ?? (c.type === "RECEIVABLE" ? "چک دریافتی" : "چک پرداختی")}
+                        {c.partyName ??
+                          (c.type === "RECEIVABLE"
+                            ? "چک دریافتی"
+                            : "چک پرداختی")}
                       </p>
-                      <p className={`text-xs ${c.daysLeft < 0 ? "text-danger" : "text-muted"}`}>
+                      <p
+                        className={`text-xs ${c.daysLeft < 0 ? "text-danger" : "text-muted"}`}>
                         {c.daysLeft < 0
                           ? `${formatNumber(-c.daysLeft)} روز از سررسید گذشته`
                           : c.daysLeft === 0
@@ -312,8 +356,7 @@ export default async function DashboardPage() {
                     <span
                       className={`shrink-0 text-sm font-semibold ${
                         c.type === "RECEIVABLE" ? "text-brand" : "text-danger"
-                      }`}
-                    >
+                      }`}>
                       {formatNumber(c.amount)}
                     </span>
                   </li>
@@ -325,8 +368,11 @@ export default async function DashboardPage() {
       </div>
 
       <p className="text-center text-xs text-muted">
-        همه‌ی داده‌ها در حساب شما ذخیره می‌شوند و هر زمان که برگردید در دسترس‌اند.{" "}
-        <Link href="/dashboard/transactions/new" className="text-gold hover:text-gold-light">
+        همه‌ی داده‌ها در حساب شما ذخیره می‌شوند و هر زمان که برگردید در
+        دسترس‌اند.{" "}
+        <Link
+          href="/dashboard/transactions/new"
+          className="text-gold hover:text-gold-light">
           ثبت تراکنش با فرم کامل
         </Link>
       </p>
