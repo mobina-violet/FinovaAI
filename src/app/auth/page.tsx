@@ -7,7 +7,7 @@ import { getCurrentUser } from "@/lib/session";
 import AuthFlow from "./AuthFlow";
 
 export const metadata = {
-  title: "ورود یا ثبت‌نام | Finova AI",
+  title: "ورود یا ثبت‌نام | FinovaAI",robots: { index: false, follow: false },
 };
 
 export default async function AuthPage() {

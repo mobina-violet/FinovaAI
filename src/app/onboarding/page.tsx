@@ -5,7 +5,10 @@ import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/business";
 import OnboardingForm from "./OnboardingForm";
 
-export const metadata = { title: "شروع کار | Finova AI" };
+export const metadata = {
+  title: "شروع کار | FinovaAI",
+  robots: { index: false, follow: false },
+};
 
 export default async function OnboardingPage() {
   const user = await requireUser();
