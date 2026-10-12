@@ -1,4 +1,6 @@
 export const siteConfig = {
+  /** آدرس اصلی سایت، بدون اسلش آخر. موقع دیپلوی تو env بذار */
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   email: "support@finova.ai",
   /** شماره‌ی تماس کامل؛ مثال: "02112345678" (خالی باشه، کارت تلفن نمایش داده نمی‌شه) */
   phone: "",

@@ -1,5 +1,6 @@
-import type { Metadata } from "next";
+import type { Metadata ,Viewport } from "next";
 import localFont from "next/font/local";
+import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 //FONT IRAN SANS
 const iranSans = localFont({
@@ -9,9 +10,38 @@ const iranSans = localFont({
   style: "normal",
   display: "swap",
 });
+const title = "FinovaAI |داده‌های مالی شما، تصمیم‌های هوشمند";
+const description =
+  "دستیار مالی هوشمند برای کسب‌وکارهای کوچک: ثبت درآمد و هزینه به زبان ساده، مدیریت چک و گزارش لحظه‌ای با هوش مصنوعی.";
+
 export const metadata: Metadata = {
-  title: "Finova AI | داده‌های مالی شما، تصمیم‌های هوشمند",
-  description: "دستیار مالی هوشمند برای کسب‌وکارها",
+  metadataBase: new URL(siteConfig.url),
+  title,
+  description,
+  applicationName: "FinovaAI",
+  keywords: [
+    "دستیار مالی هوشمند",
+    "حسابداری هوش مصنوعی",
+    "مدیریت مالی کسب‌وکار کوچک",
+    "ثبت هزینه و درآمد",
+    "مدیریت چک",
+    "Finova AI",
+  ],
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: "fa_IR",
+    siteName: "FinovaAI",
+    url: "/",
+    title,
+    description,
+  },
+  twitter: { card: "summary_large_image", title, description },
+  robots: { index: true, follow: true },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0b0d0c",
 };
 
 export default function RootLayout({
