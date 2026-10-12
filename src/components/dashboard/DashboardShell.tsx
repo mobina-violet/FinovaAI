@@ -145,14 +145,14 @@ export default function DashboardShell({
       {open && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div
-            className="absolute inset-0 bg-black/60"
+            className="absolute inset-0 bg-black/75 backdrop-blur-sm"
             onClick={() => setOpen(false)}
           />
-          <aside className="glass absolute inset-y-3 right-3 w-72 rounded-2xl">
+          <aside className="absolute inset-y-3 right-3 w-72 overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-[#10201a] to-[#0b0d0c] shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
             <button
               onClick={() => setOpen(false)}
               aria-label="بستن منو"
-              className="absolute left-3 top-3 flex h-9 w-9 items-center justify-center rounded-lg text-muted hover:bg-white/10">
+              className="absolute left-4 top-6 flex h-9 w-9 items-center justify-center rounded-lg text-muted transition-colors hover:bg-white/10 hover:text-fg">
               <X size={18} />
             </button>
             <SidebarContent
@@ -164,9 +164,8 @@ export default function DashboardShell({
           </aside>
         </div>
       )}
-
       <div className="flex min-w-0 flex-1 flex-col gap-4">
-        <header className="glass sticky top-3 z-30 flex h-14 items-center justify-between rounded-2xl px-4">
+        <header className="glass flex h-14 items-center justify-between rounded-2xl px-4 lg:hidden">
           <div className="flex items-center gap-3">
             <button
               onClick={() => setOpen(true)}
