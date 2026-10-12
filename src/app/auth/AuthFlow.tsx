@@ -5,7 +5,7 @@ import { Loader2, ShieldCheck, Smartphone } from "lucide-react";
 import { toLatinDigits } from "@/lib/phone";
 import { sendOtpAction, verifyOtpAction } from "./actions";
 import type { SendState, VerifyState } from "./types";
-
+import Link from "next/link";
 const fa = new Intl.NumberFormat("fa-IR");
 
 const initialSend: SendState = {};
@@ -33,8 +33,7 @@ function SubmitButton({
     <button
       type="submit"
       disabled={pending}
-      className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-b from-gold-light to-gold text-sm font-semibold text-black shadow-[0_8px_24px_rgba(198,161,91,0.25)] transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-60"
-    >
+      className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-b from-gold-light to-gold text-sm font-semibold text-black shadow-[0_8px_24px_rgba(198,161,91,0.25)] transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-60">
       {pending && <Loader2 size={16} className="animate-spin" />}
       {children}
     </button>
@@ -71,8 +70,7 @@ function ResendButton({
       <input type="hidden" name="phone" value={phone} />
       <button
         type="submit"
-        className="text-xs text-gold transition-colors hover:text-gold-light"
-      >
+        className="text-xs text-gold transition-colors hover:text-gold-light">
         ارسال مجدد کد
       </button>
     </form>
@@ -80,10 +78,13 @@ function ResendButton({
 }
 
 export default function AuthFlow() {
-  const [send, sendAction, sending] = useActionState(sendOtpAction, initialSend);
+  const [send, sendAction, sending] = useActionState(
+    sendOtpAction,
+    initialSend,
+  );
   const [verify, verifyAction, verifying] = useActionState(
     verifyOtpAction,
-    initialVerify
+    initialVerify,
   );
   const [dismissed, setDismissed] = useState<number | null>(null);
 
@@ -157,8 +158,7 @@ export default function AuthFlow() {
         <button
           type="button"
           onClick={() => setDismissed(send.nonce ?? null)}
-          className="text-gold transition-colors hover:text-gold-light"
-        >
+          className="text-gold transition-colors hover:text-gold-light">
           ویرایش شماره
         </button>
       </p>
@@ -210,8 +210,22 @@ export default function AuthFlow() {
       </div>
 
       {process.env.NODE_ENV !== "production" && (
-        <p className="mt-6 text-center text-[11px] text-muted/70">
-          حالت توسعه: کد در ترمینال سرور چاپ می‌شود.
+        <p className="mt-6 text-center text-xs leading-6 text-muted">
+          ادامه دادن به معنی پذیرش{" "}
+          <Link
+            href="/terms"
+            target="_blank"
+            className="text-gold hover:underline">
+            قوانین و مقررات
+          </Link>{" "}
+          و{" "}
+          <Link
+            href="/privacy"
+            target="_blank"
+            className="text-gold hover:underline">
+            حریم خصوصی
+          </Link>{" "}
+          است.
         </p>
       )}
     </div>

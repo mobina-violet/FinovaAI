@@ -1,143 +1,130 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Send, Mail, ArrowUpLeft } from "lucide-react";
+import { ChevronDown, Send, Mail } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 
 const links = [
   { href: "/#features", label: "ویژگی‌ها" },
   { href: "/#faq", label: "سوالات متداول" },
   { href: "/#about", label: "درباره ما" },
-  { href: "/insights", label: "مجله فینوا" },
+  { href: "/insights", label: "دیدگاه فینوا" },
   { href: "/contact", label: "تماس با ما" },
 ];
 
+const legal = [
+  { href: "/terms", label: "قوانین و مقررات" },
+  { href: "/privacy", label: "حریم خصوصی" },
+];
+
 const socials = [
-  {
-    href: siteConfig.telegram,
-    label: "تلگرام",
-    icon: Send,
-  },
-  ...(siteConfig.email
-    ? [
-        {
-          href: `mailto:${siteConfig.email}`,
-          label: "ایمیل",
-          icon: Mail,
-        },
-      ]
-    : []),
-].filter((item) => Boolean(item.href));
+  { href: siteConfig.telegram, label: "Telegram", icon: Send },
+  { href: siteConfig.email ? `mailto:${siteConfig.email}` : "", label: "Email", icon: Mail },
+].filter((s) => s.href);
+
+/** یک بخش تاشو (فقط موبایل) */
+function Accordion({
+  title,
+  items,
+}: {
+  title: string;
+  items: { href: string; label: string }[];
+}) {
+  return (
+    <details className="group border-b border-border">
+      <summary className="flex cursor-pointer list-none items-center justify-between py-3.5 text-sm text-fg/90 [&::-webkit-details-marker]:hidden">
+        {title}
+        <ChevronDown
+          size={16}
+          className="text-muted transition-transform duration-200 group-open:rotate-180"
+        />
+      </summary>
+      <ul className="space-y-1 pb-3">
+        {items.map((l) => (
+          <li key={l.href}>
+            <Link
+              href={l.href}
+              className="block rounded-lg px-1 py-2 text-sm text-muted transition-colors hover:text-fg">
+              {l.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </details>
+  );
+}
 
 export default function Footer() {
   return (
-    <footer
-      dir="rtl"
-      className="relative overflow-hidden border-t border-white/[0.08] bg-[#0b0e0c]">
-      {/* نور پس‌زمینه‌ی ظریف */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-32 right-1/4 h-64 w-64 rounded-full bg-emerald-500/[0.06] blur-[100px]"
-      />
-
-      <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
-        {/* بخش اصلی */}
-        <div className="grid gap-10 py-12 md:grid-cols-[1.3fr_1fr] md:items-start md:gap-16 md:py-16">
-          {/* برند و توضیحات */}
-          <div className="flex flex-col items-start gap-5">
-        <Link href="/" className="group flex shrink-0 items-center gap-3">
-          <div className="relative">
-            <div className="absolute inset-0 rounded-full bg-gold/20 opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-100" />
-            <Image
-              src="/images/logo.webp"
-              alt="لوگوی FinovaAI"
-              width={48}
-              height={48}
-              quality={90}
-              className="relative h-12 w-12 object-contain drop-shadow-[0_0_12px_rgba(212,175,55,0.3)]"
-              priority
-            />
-          </div>
-          <div className="leading-tight">
-            <p className="text-lg font-bold tracking-wide text-brand radley">
-              Finova<span className="text-gold radley">AI</span>
-            </p>
-            <p className="hidden text-[11px] font-medium text-gold/80 sm:block radley">
-              Your Smart Financial Assistant
-            </p>
-          </div>
-        </Link>
-
-            <p className="max-w-md text-sm leading-8 text-white/55">
-              مدیریت هوشمند امور مالی کسب‌وکار؛ شفاف‌تر ببینید، دقیق‌تر تحلیل
-              کنید و با اطمینان بیشتری تصمیم بگیرید.
-            </p>
-
-            {/* شبکه‌های ارتباطی */}
-            {socials.length > 0 && (
-              <div className="flex items-center gap-3 pt-1">
-                {socials.map(({ href, label, icon: Icon }) => {
-                  const isExternal = href.startsWith("http");
-
-                  return (
-                    <a
-                      key={label}
-                      href={href}
-                      aria-label={label}
-                      title={label}
-                      target={isExternal ? "_blank" : undefined}
-                      rel={isExternal ? "noopener noreferrer" : undefined}
-                      className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-white/60 transition-colors duration-200 hover:border-emerald-400/30 hover:bg-emerald-400/10 hover:text-emerald-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400">
-                      <Icon size={18} strokeWidth={1.8} />
-                    </a>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-
-          {/* لینک‌ها */}
-          <div className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-2">
-            <div>
-              <h2 className="mb-5 text-sm font-semibold text-white">
-                دسترسی سریع
-              </h2>
-
-              <nav
-                aria-label="لینک‌های فوتر"
-                className="flex flex-col items-start gap-4">
-                {links.map(({ href, label }) => (
-                  <Link
-                    key={href}
-                    href={href}
-                    className="group inline-flex items-center gap-2 text-sm text-white/55 transition-colors hover:text-emerald-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400">
-                    <span>{label}</span>
-                    <ArrowUpLeft
-                      size={13}
-                      aria-hidden="true"
-                      className="opacity-0 transition-all duration-200 group-hover:-translate-x-0.5 group-hover:opacity-100"
-                    />
-                  </Link>
-                ))}
-              </nav>
+    <footer className="border-t border-border py-8 md:py-10">
+      <div className="mx-auto max-w-6xl px-4">
+        <div className="flex items-center justify-between gap-6">
+          <Link href="/" className="group flex shrink-0 items-center gap-0">
+            <div className="relative">
+              <div className="absolute inset-0 rounded-full bg-gold/20 opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-100" />
+              <Image
+                src="/images/logo.webp"
+                alt="لوگوی FinovaAI"
+                width={48}
+                height={48}
+                quality={90}
+                className="relative h-11 w-11 object-contain drop-shadow-[0_0_12px_rgba(212,175,55,0.3)] md:h-12 md:w-12"
+              />
             </div>
-
-            <div>
-              <h2 className="mb-5 text-sm font-semibold text-white">
-                همراه فینوا
-              </h2>
-
-              <p className="max-w-[220px] text-sm leading-7 text-white/50">
-                قدم بعدی کسب‌وکارت را با شناخت بهتر از وضعیت مالی بردار.
+            <div className="-mr-1 leading-tight">
+              <p className="text-lg font-bold tracking-wide text-brand">
+                Finova<span className="text-gold">AI</span>
               </p>
-
-              <Link
-                href="/contact"
-                className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-emerald-300 transition-colors hover:text-emerald-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400">
-                با ما در ارتباط باش
-                <ArrowUpLeft size={16} aria-hidden="true" />
-              </Link>
+              <p className="hidden text-[10px] font-medium text-gold/80 sm:block">
+                Your Smart Financial Assistant
+              </p>
             </div>
+          </Link>
+
+          {/* دسکتاپ: لینک‌ها وسط */}
+          <nav
+            aria-label="لینک‌های فوتر"
+            className="hidden flex-wrap justify-center gap-6 text-xs text-muted md:flex">
+            {links.map((l) => (
+              <Link key={l.href} href={l.href} className="transition-colors hover:text-fg">
+                {l.label}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-4 text-muted">
+            {socials.map(({ href, label, icon: Icon }) => (
+              <a
+                key={label}
+                href={href}
+                aria-label={label}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                className="transition-colors hover:text-brand">
+                <Icon size={18} />
+              </a>
+            ))}
           </div>
+        </div>
+
+        {/* موبایل: بخش‌های تاشو */}
+        <div className="mt-6 border-t border-border md:hidden">
+          <Accordion title="لینک‌های سایت" items={links} />
+          <Accordion title="قوانین و حریم خصوصی" items={legal} />
+        </div>
+
+        {/* پایین فوتر */}
+        <div className="mt-6 flex flex-col items-center justify-between gap-3 text-xs text-muted md:mt-8 md:flex-row md:border-t md:border-border md:pt-6">
+          <p dir="ltr">© {new Date().getFullYear()} Finova AI. All rights reserved.</p>
+
+          <nav aria-label="لینک‌های حقوقی" className="hidden items-center gap-5 md:flex">
+            {legal.map((l) => (
+              <Link key={l.href} href={l.href} className="transition-colors hover:text-fg">
+                {l.label}
+              </Link>
+            ))}
+          </nav>
+
+          <p>ساخته‌شده برای کسب‌وکارهای آینده</p>
         </div>
       </div>
     </footer>
