@@ -5,6 +5,8 @@ import { ArrowLeft, ChevronLeft, Sparkles } from "lucide-react";
 import Header from "@/components/landing/Header";
 import Footer from "@/components/landing/Footer";
 import AmbientBackground from "@/components/ui/AmbientBackground";
+import { siteConfig } from "@/lib/site-config";
+import JsonLd from "@/components/seo/JsonLd";
 import {
   ArticleCard,
   ArticleCover,
@@ -25,6 +27,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${article.title} | Finova AI`,
     description: article.excerpt,
+    alternates: { canonical: `/insights/${article.slug}` },
+    openGraph: {
+      type: "article",
+      locale: "fa_IR",
+      url: `/insights/${article.slug}`,
+      title: article.title,
+      description: article.excerpt,
+      publishedTime: article.date,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.excerpt,
+    },
   };
 }
 
@@ -43,7 +59,22 @@ export default async function ArticlePage({ params }: Props) {
 
         <article className="mx-auto max-w-3xl px-4 pb-16 pt-32">
           {/* مسیر صفحه */}
-          <nav aria-label="مسیر صفحه" className="flex items-center gap-1.5 text-xs text-muted">
+          <JsonLd
+            data={{
+              "@context": "https://schema.org",
+              "@type": "Article",
+              headline: article.title,
+              description: article.excerpt,
+              datePublished: article.date,
+              inLanguage: "fa-IR",
+              author: { "@type": "Organization", name: "Finova AI" },
+              publisher: { "@type": "Organization", name: "Finova AI" },
+              mainEntityOfPage: `${siteConfig.url}/insights/${article.slug}`,
+            }}
+          />
+          <nav
+            aria-label="مسیر صفحه"
+            className="flex items-center gap-1.5 text-xs text-muted">
             <Link href="/" className="transition-colors hover:text-fg">
               خانه
             </Link>
@@ -59,8 +90,12 @@ export default async function ArticlePage({ params }: Props) {
             <span className="inline-block rounded-full bg-gold/10 px-3 py-1 text-xs text-gold">
               {article.category}
             </span>
-            <h1 className="mt-4 text-2xl font-bold leading-[2] sm:text-3xl">{article.title}</h1>
-            <p className="mt-4 text-[15px] leading-8 text-muted">{article.excerpt}</p>
+            <h1 className="mt-4 text-2xl font-bold leading-[2] sm:text-3xl">
+              {article.title}
+            </h1>
+            <p className="mt-4 text-[15px] leading-8 text-muted">
+              {article.excerpt}
+            </p>
             <div className="mt-5 flex items-center gap-3">
               <span className="text-xs text-muted">تیم Finova AI</span>
               <span className="h-1 w-1 rounded-full bg-muted/50" />
@@ -82,7 +117,9 @@ export default async function ArticlePage({ params }: Props) {
                   );
                 case "list":
                   return (
-                    <ul key={i} className="space-y-3 text-[15px] leading-8 text-fg/85">
+                    <ul
+                      key={i}
+                      className="space-y-3 text-[15px] leading-8 text-fg/85">
                       {block.items.map((item) => (
                         <li key={item} className="flex items-start gap-3">
                           <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-brand" />
