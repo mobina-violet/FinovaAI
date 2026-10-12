@@ -7,7 +7,7 @@ import AmbientBackground from "@/components/ui/AmbientBackground";
 import ArticleExplorer from "./ArticleExplorer";
 
 export const metadata: Metadata = {
-  title: "دیدگاه فینوا | Finova AI",
+  title: "دیدگاه فینوا | FinovaAI",
   description:
     "نگاه ما به مدیریت مالی کسب‌وکارهای کوچک: ساده، شفاف و هوشمند. مقاله‌ها و نکته‌های کاربردی تیم Finova AI.",
 };
@@ -38,6 +38,7 @@ export default function InsightsPage() {
         {/* هیرو: متن + نقل‌قول */}
         <section className="relative isolate overflow-hidden">
           <AmbientBackground />
+   
           <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 pb-14 pt-32 lg:grid-cols-[1.1fr_1fr] lg:gap-14 lg:pb-16 lg:pt-36">
             <div>
               <span className="inline-flex items-center gap-2 rounded-full border border-gold/30 px-3 py-1 text-[11px] text-brand">
@@ -53,8 +54,9 @@ export default function InsightsPage() {
                 به مالی کسب‌وکار
               </h1>
               <p className="mt-4 max-w-md text-sm leading-8 text-muted">
-                باور داریم هر کسب‌وکار کوچکی لایق ابزاری است که مالی را ساده کند و تصمیم‌گیری را
-                روشن. اینجا درباره‌ی نگاه‌مان و چیزهایی که در مسیر یاد می‌گیریم می‌نویسیم.
+                باور داریم هر کسب‌وکار کوچکی لایق ابزاری است که مالی را ساده کند
+                و تصمیم‌گیری را روشن. اینجا درباره‌ی نگاه‌مان و چیزهایی که در
+                مسیر یاد می‌گیریم می‌نویسیم.
               </p>
               <a
                 href="#articles"
@@ -67,8 +69,8 @@ export default function InsightsPage() {
             <figure className="glass relative rounded-2xl p-6 sm:p-8">
               <Quote size={26} className="text-gold/70" />
               <blockquote className="mt-4 text-lg font-medium leading-10 sm:text-xl sm:leading-[2.6rem]">
-                هدف این نیست که عددهای بیشتری ببینید؛ هدف این است که بدانید با کدام عدد باید کاری
-                کرد.
+                هدف این نیست که عددهای بیشتری ببینید؛ هدف این است که بدانید با
+                کدام عدد باید کاری کرد.
               </blockquote>
               <figcaption className="mt-5 flex items-center gap-3 text-xs text-muted">
                 <span className="h-px w-8 bg-gold/60" />
