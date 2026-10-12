@@ -145,7 +145,7 @@ export default function TransactionForm({
           <button
             type="button"
             onClick={onCancel}
-            className="h-12 shrink-0 rounded-xl border border-white/10 px-5 text-sm text-fg/80 transition-colors hover:bg-white/5"
+            className="h-11 shrink-0 rounded-xl border border-white/10 px-4 text-[13px] text-fg/80 transition-colors hover:bg-white/5"
           >
             انصراف
           </button>
