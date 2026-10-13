@@ -1,3 +1,4 @@
+//اطلاعات تماس و آدرس سایت.
 export const siteConfig = {
   /** آدرس اصلی سایت، بدون اسلش آخر. موقع دیپلوی تو env بذار */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",

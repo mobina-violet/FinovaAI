@@ -1,5 +1,5 @@
 "use client";
-
+//QuickEntry: ثبت سریع با جمله ← پیش‌نویس ← تأیید.
 import { useActionState, useRef, useState } from "react";
 import { Loader2, Sparkles } from "lucide-react";
 import { previewEntryAction } from "@/app/dashboard/actions";

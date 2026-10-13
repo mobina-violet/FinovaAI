@@ -1,3 +1,4 @@
+//ui/form.tsx: مجموعه‌ی فیلدها (TextField، SelectField، TextAreaField، SubmitButton، FormAlert) که تو فرم‌های تماس، onboarding و تراکنش مشترکن.
 import { ChevronDown, Loader2 } from "lucide-react";
 
 const fieldClass =
@@ -38,9 +39,20 @@ type TextFieldProps = {
   hint?: string;
   ltr?: boolean;
   suffix?: string;
-} & Omit<React.InputHTMLAttributes<HTMLInputElement>, "name" | "dir" | "className">;
+} & Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "name" | "dir" | "className"
+>;
 
-export function TextField({ label, name, error, hint, ltr, suffix, ...props }: TextFieldProps) {
+export function TextField({
+  label,
+  name,
+  error,
+  hint,
+  ltr,
+  suffix,
+  ...props
+}: TextFieldProps) {
   return (
     <FieldShell label={label} htmlFor={name} error={error} hint={hint}>
       <div className="relative">
@@ -58,8 +70,7 @@ export function TextField({ label, name, error, hint, ltr, suffix, ...props }: T
           <span
             className={`pointer-events-none absolute top-1/2 -translate-y-1/2 text-xs text-muted ${
               ltr ? "right-4" : "left-4"
-            }`}
-          >
+            }`}>
             {suffix}
           </span>
         )}
@@ -93,8 +104,7 @@ export function SelectField({
           aria-invalid={Boolean(error)}
           className={`${fieldClass} appearance-none ${
             error ? "border-danger/60" : "border-white/10"
-          } [&>option]:bg-surface`}
-        >
+          } [&>option]:bg-surface`}>
           <option value="">{placeholder}</option>
           {options.map((o) => (
             <option key={o} value={o}>
@@ -122,7 +132,10 @@ export function TextAreaField({
   name: string;
   error?: string;
   rows?: number;
-} & Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, "name" | "className" | "rows">) {
+} & Omit<
+  React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+  "name" | "className" | "rows"
+>) {
   return (
     <FieldShell label={label} htmlFor={name} error={error}>
       <textarea
@@ -148,8 +161,7 @@ export function SubmitButton({
     <button
       type="submit"
       disabled={pending}
-      className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-b from-gold-light to-gold text-sm font-semibold text-black shadow-[0_8px_24px_rgba(198,161,91,0.25)] transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-60"
-    >
+      className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-b from-gold-light to-gold text-sm font-semibold text-black shadow-[0_8px_24px_rgba(198,161,91,0.25)] transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-60">
       {pending && <Loader2 size={16} className="animate-spin" />}
       {children}
     </button>
@@ -161,8 +173,7 @@ export function FormAlert({ message }: { message?: string }) {
   return (
     <div
       role="alert"
-      className="rounded-xl border border-danger/30 bg-danger/10 px-4 py-3 text-sm text-danger"
-    >
+      className="rounded-xl border border-danger/30 bg-danger/10 px-4 py-3 text-sm text-danger">
       {message}
     </div>
   );

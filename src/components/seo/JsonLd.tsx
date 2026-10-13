@@ -1,3 +1,4 @@
+//seo/JsonLd (امروز): داده‌ی ساختاریافته برای گوگل.
 export default function JsonLd({ data }: { data: Record<string, unknown> }) {
   return (
     <script

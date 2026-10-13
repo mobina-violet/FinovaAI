@@ -1,3 +1,4 @@
+//ui/LegalPage (امروز): قالب قوانین و حریم خصوصی با فهرست مطالب.
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import Header from "@/components/landing/Header";
@@ -18,10 +19,17 @@ type Props = {
   sections: LegalSection[];
 };
 
-const num = (n: number) => n.toLocaleString("fa-IR", { minimumIntegerDigits: 2 });
+const num = (n: number) =>
+  n.toLocaleString("fa-IR", { minimumIntegerDigits: 2 });
 
 /** قالب مشترک صفحه‌های حقوقی (قوانین، حریم خصوصی) */
-export default function LegalPage({ eyebrow, title, description, updatedAt, sections }: Props) {
+export default function LegalPage({
+  eyebrow,
+  title,
+  description,
+  updatedAt,
+  sections,
+}: Props) {
   return (
     <>
       <Header />
@@ -30,7 +38,9 @@ export default function LegalPage({ eyebrow, title, description, updatedAt, sect
 
         <div className="mx-auto max-w-5xl px-4 pb-20 pt-28">
           {/* مسیر صفحه */}
-          <nav aria-label="مسیر صفحه" className="flex items-center gap-1.5 text-xs text-muted">
+          <nav
+            aria-label="مسیر صفحه"
+            className="flex items-center gap-1.5 text-xs text-muted">
             <Link href="/" className="transition-colors hover:text-fg">
               خانه
             </Link>
@@ -40,9 +50,15 @@ export default function LegalPage({ eyebrow, title, description, updatedAt, sect
 
           {/* سربرگ: راست‌چین و کم‌حجم */}
           <header className="mt-6 border-b border-border pb-8">
-            <h1 className="text-2xl font-bold leading-[1.6] sm:text-3xl">{title}</h1>
-            <p className="mt-3 max-w-2xl text-sm leading-7 text-muted">{description}</p>
-            <p className="mt-4 text-xs text-muted/80">آخرین به‌روزرسانی: {updatedAt}</p>
+            <h1 className="text-2xl font-bold leading-[1.6] sm:text-3xl">
+              {title}
+            </h1>
+            <p className="mt-3 max-w-2xl text-sm leading-7 text-muted">
+              {description}
+            </p>
+            <p className="mt-4 text-xs text-muted/80">
+              آخرین به‌روزرسانی: {updatedAt}
+            </p>
           </header>
 
           <div className="mt-10 grid gap-10 lg:grid-cols-[13rem_1fr] lg:gap-14">
@@ -90,12 +106,16 @@ export default function LegalPage({ eyebrow, title, description, updatedAt, sect
                   id={`s${i + 1}`}
                   className="scroll-mt-28 border-b border-border/60 py-8 first:pt-0 last:border-b-0">
                   <h2 className="flex items-baseline gap-3 text-base font-bold sm:text-lg">
-                    <span className="text-sm font-normal text-gold/80">{num(i + 1)}</span>
+                    <span className="text-sm font-normal text-gold/80">
+                      {num(i + 1)}
+                    </span>
                     {s.title}
                   </h2>
 
                   {s.paragraphs?.map((p) => (
-                    <p key={p} className="mt-3 text-sm leading-8 text-fg/75 sm:text-[15px]">
+                    <p
+                      key={p}
+                      className="mt-3 text-sm leading-8 text-fg/75 sm:text-[15px]">
                       {p}
                     </p>
                   ))}

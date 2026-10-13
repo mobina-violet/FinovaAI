@@ -1,3 +1,4 @@
+//نوع کسب‌وکارها و ۹ دسته‌ی پیش‌فرض
 export const BUSINESS_CATEGORIES = [
   "کتاب‌فروشی",
   "خرده‌فروشی",
@@ -11,7 +12,10 @@ export const BUSINESS_CATEGORIES = [
 export type CategoryOptions = { INCOME: string[]; EXPENSE: string[] };
 
 /** دسته‌بندی‌های پیش‌فرضی که موقع ساخت کسب‌وکار ساخته می‌شن */
-export const DEFAULT_CATEGORIES: { name: string; type: "INCOME" | "EXPENSE" }[] = [
+export const DEFAULT_CATEGORIES: {
+  name: string;
+  type: "INCOME" | "EXPENSE";
+}[] = [
   { name: "فروش", type: "INCOME" },
   { name: "سایر درآمدها", type: "INCOME" },
   { name: "خرید کالا", type: "EXPENSE" },

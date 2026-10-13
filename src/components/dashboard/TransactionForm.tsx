@@ -1,5 +1,5 @@
 "use client";
-
+//TransactionForm: فرم ثبت تراکنش
 import { useActionState, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { TrendingDown, TrendingUp } from "lucide-react";
@@ -36,8 +36,13 @@ export default function TransactionForm({
   onCancel,
 }: Props) {
   const router = useRouter();
-  const [state, action, pending] = useActionState(createTransactionAction, initialState);
-  const [type, setType] = useState<"INCOME" | "EXPENSE">(initial?.type ?? "INCOME");
+  const [state, action, pending] = useActionState(
+    createTransactionAction,
+    initialState,
+  );
+  const [type, setType] = useState<"INCOME" | "EXPENSE">(
+    initial?.type ?? "INCOME",
+  );
 
   const onDoneRef = useRef(onDone);
   useEffect(() => {
@@ -50,15 +55,19 @@ export default function TransactionForm({
     onDoneRef.current?.();
   }, [state.savedAt, redirectTo, router]);
 
-  const toggle = (value: "INCOME" | "EXPENSE", active: string, label: string, icon: React.ReactNode) => (
+  const toggle = (
+    value: "INCOME" | "EXPENSE",
+    active: string,
+    label: string,
+    icon: React.ReactNode,
+  ) => (
     <button
       type="button"
       onClick={() => setType(value)}
       aria-pressed={type === value}
       className={`flex items-center justify-center gap-2 rounded-lg py-2.5 text-sm transition-colors ${
         type === value ? active : "text-muted hover:text-fg"
-      }`}
-    >
+      }`}>
       {icon}
       {label}
     </button>
@@ -79,8 +88,18 @@ export default function TransactionForm({
       <div>
         <span className="mb-2 block text-sm text-fg/80">نوع تراکنش</span>
         <div className="grid grid-cols-2 gap-1 rounded-xl border border-white/10 bg-black/25 p-1">
-          {toggle("INCOME", "bg-brand/20 text-brand", "درآمد", <TrendingUp size={16} />)}
-          {toggle("EXPENSE", "bg-danger/15 text-danger", "هزینه", <TrendingDown size={16} />)}
+          {toggle(
+            "INCOME",
+            "bg-brand/20 text-brand",
+            "درآمد",
+            <TrendingUp size={16} />,
+          )}
+          {toggle(
+            "EXPENSE",
+            "bg-danger/15 text-danger",
+            "هزینه",
+            <TrendingDown size={16} />,
+          )}
         </div>
         <input type="hidden" name="type" value={type} />
       </div>
@@ -96,7 +115,9 @@ export default function TransactionForm({
         defaultValue={state.values?.amount ?? withCommas(initial?.amount ?? "")}
         error={state.errors?.amount}
         onChange={(e) => {
-          const digits = toLatinDigits(e.target.value).replace(/\D/g, "").slice(0, 15);
+          const digits = toLatinDigits(e.target.value)
+            .replace(/\D/g, "")
+            .slice(0, 15);
           e.target.value = withCommas(digits);
         }}
       />
@@ -145,8 +166,7 @@ export default function TransactionForm({
           <button
             type="button"
             onClick={onCancel}
-            className="h-11 shrink-0 rounded-xl border border-white/10 px-4 text-[13px] text-fg/80 transition-colors hover:bg-white/5"
-          >
+            className="h-11 shrink-0 rounded-xl border border-white/10 px-4 text-[13px] text-fg/80 transition-colors hover:bg-white/5">
             انصراف
           </button>
         )}
