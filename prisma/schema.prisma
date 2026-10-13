@@ -7,6 +7,7 @@ datasource db {
   provider = "postgresql"
 }
 
+
 enum TransactionType {
   INCOME
   EXPENSE
@@ -14,7 +15,7 @@ enum TransactionType {
 
 enum ChequeType {
   RECEIVABLE // چک دریافتی
-  PAYABLE    // چک پرداختی
+  PAYABLE // چک پرداختی
 }
 
 enum ChequeStatus {
@@ -30,6 +31,11 @@ enum NotificationChannel {
   EMAIL
 }
 
+enum ChatRole {
+  USER
+  ASSISTANT
+}
+//کاربر
 model User {
   id        String   @id @default(cuid())
   phone     String   @unique
@@ -37,10 +43,11 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  business Business[]
-  sessions Session[]
+  businesses Business[]
+  sessions   Session[]
 }
-
+//رمز 6رقمی
+//کدهای تأیید (فقط هش کد ذخیره می‌شه، تعداد تلاش و انقضا)
 model OtpCode {
   id        String    @id @default(cuid())
   phone     String
@@ -52,7 +59,6 @@ model OtpCode {
 
   @@index([phone, createdAt])
 }
-
 model Session {
   id        String   @id // هش SHA-256 توکن کوکی
   userId    String
@@ -62,11 +68,11 @@ model Session {
 
   @@index([userId])
 }
-
+//	نشست ورود (شناسه = هش توکن کوکی)
 model Business {
   id        String   @id @default(cuid())
   name      String
-  category  String? // مثلا: کتاب‌فروشی
+  type      String? // نوع کسب‌وکار؛ مثلا: کتاب‌فروشی
   ownerId   String
   createdAt DateTime @default(now())
 
@@ -91,7 +97,7 @@ model Category {
 
   @@unique([businessId, name, type])
 }
-
+//	تراکنش (مبلغ BigInt به تومان، تعداد، توضیح، تاریخ)
 model Transaction {
   id          String          @id @default(cuid())
   businessId  String
@@ -102,13 +108,14 @@ model Transaction {
   description String?
   occurredAt  DateTime        @default(now())
   createdAt   DateTime        @default(now())
+  deletedAt   DateTime? // حذف نرم: null یعنی تراکنش فعاله
 
   business Business  @relation(fields: [businessId], references: [id], onDelete: Cascade)
   category Category? @relation(fields: [categoryId], references: [id])
 
   @@index([businessId, occurredAt])
 }
-
+//	چک (دریافتی/پرداختی، سررسید، وضعیت)
 model Cheque {
   id         String       @id @default(cuid())
   businessId String
@@ -125,7 +132,7 @@ model Cheque {
 
   @@index([businessId, dueDate, status])
 }
-
+//اعلان
 model Notification {
   id         String              @id @default(cuid())
   businessId String
@@ -141,15 +148,26 @@ model Notification {
 
   @@index([businessId, sendAt])
 }
-
+//پیام‌های چت با دستیار
 model ChatMessage {
   id         String   @id @default(cuid())
   businessId String
-  role       String // "user" | "assistant"
+  role       ChatRole
   content    String
   createdAt  DateTime @default(now())
 
   business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
 
   @@index([businessId, createdAt])
+}
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String
+  email     String?
+  topic     String
+  message   String
+  createdAt DateTime @default(now())
+
+  @@index([phone, createdAt])
 }
