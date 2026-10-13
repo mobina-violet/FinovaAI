@@ -8,7 +8,7 @@ import type { OnboardingState } from "./types";
 
 export async function createBusinessAction(
   _prev: OnboardingState,
-  formData: FormData
+  formData: FormData,
 ): Promise<OnboardingState> {
   const user = await requireUser();
 
@@ -38,7 +38,7 @@ export async function createBusinessAction(
       prisma.business.create({
         data: {
           name,
-          category,
+          type: category,
           ownerId: user.id,
           categories: { create: DEFAULT_CATEGORIES },
         },
