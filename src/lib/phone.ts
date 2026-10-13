@@ -1,12 +1,16 @@
+import { toLatinDigits } from "@/lib/format";
+
+//هر شکلی از شماره ایرانی (۰۹۱۲، +98912...) رو به 09xxxxxxxxx تبدیل می‌کنه
 const PERSIAN = "۰۱۲۳۴۵۶۷۸۹";
 const ARABIC = "٠١٢٣٤٥٦٧٨٩";
 
 /** اعداد فارسی و عربی رو به انگلیسی تبدیل می‌کنه */
-export function toLatinDigits(input: string): string {
+/*export function toLatinDigits(input: string): string {
   return input
     .replace(/[۰-۹]/g, (d) => String(PERSIAN.indexOf(d)))
     .replace(/[٠-٩]/g, (d) => String(ARABIC.indexOf(d)));
 }
+ */
 
 /** هر شکلی از موبایل ایرانی (0912..., +98912..., ۰۹۱۲...) رو به 09xxxxxxxxx تبدیل می‌کنه، یا null */
 export function parseIranPhone(raw: string): string | null {

@@ -2,7 +2,7 @@
 
 import { useActionState, useEffect, useState } from "react";
 import { Loader2, ShieldCheck, Smartphone } from "lucide-react";
-import { toLatinDigits } from "@/lib/phone";
+import { toLatinDigits } from "@/lib/format";
 import { sendOtpAction, verifyOtpAction } from "./actions";
 import type { SendState, VerifyState } from "./types";
 import Link from "next/link";
