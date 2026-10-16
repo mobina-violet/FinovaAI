@@ -1,5 +1,5 @@
 "use client";
-//QuickEntry: ثبت سریع با جمله ← پیش‌نویس ← تأیید.
+
 import { useActionState, useRef, useState } from "react";
 import { Loader2, Sparkles } from "lucide-react";
 import { previewEntryAction } from "@/app/dashboard/actions";
@@ -15,8 +15,15 @@ const examples = [
 
 const initialState: PreviewState = {};
 
-export default function QuickEntry({ categories }: { categories: CategoryOptions }) {
-  const [state, action, pending] = useActionState(previewEntryAction, initialState);
+export default function QuickEntry({
+  categories,
+}: {
+  categories: CategoryOptions;
+}) {
+  const [state, action, pending] = useActionState(
+    previewEntryAction,
+    initialState,
+  );
   const [dismissed, setDismissed] = useState<number | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -34,7 +41,8 @@ export default function QuickEntry({ categories }: { categories: CategoryOptions
           ثبت سریع با جمله
         </h2>
         <p className="mt-1.5 text-xs leading-6 text-muted">
-          هر اتفاق مالی را همان‌طور که می‌گویید بنویسید؛ پیش‌نویس را می‌بینید و بعد از تأیید ذخیره می‌شود.
+          هر اتفاق مالی را همان‌طور که می‌گویید بنویسید؛ پیش‌نویس را می‌بینید و بعد
+          از تأیید ذخیره می‌شود.
         </p>
 
         {!showDraft && (
@@ -58,7 +66,9 @@ export default function QuickEntry({ categories }: { categories: CategoryOptions
               </button>
             </form>
 
-            {state.error && <p className="mt-2 text-xs text-danger">{state.error}</p>}
+            {state.error && (
+              <p className="mt-2 text-xs text-danger">{state.error}</p>
+            )}
 
             <div className="mt-4 flex flex-wrap gap-2">
               {examples.map((ex) => (
@@ -80,7 +90,7 @@ export default function QuickEntry({ categories }: { categories: CategoryOptions
           </>
         )}
 
-        {showDraft && state.draft && (
+        {showDraft && state.draft ? (
           <div className="mt-5 border-t border-white/10 pt-5">
             <TransactionForm
               key={state.nonce}
@@ -90,7 +100,7 @@ export default function QuickEntry({ categories }: { categories: CategoryOptions
               onCancel={() => setDismissed(state.nonce ?? null)}
             />
           </div>
-        )}
+        ) : null}
       </div>
     </section>
   );
