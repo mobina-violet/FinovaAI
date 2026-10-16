@@ -1,10 +1,10 @@
 export type SendState = {
   ok?: boolean;
   phone?: string;
-  /** شناسه‌ی هر ارسال موفق؛ برای تشخیص مرحله و ریست تایمر */
   nonce?: number;
   cooldown?: number;
   error?: string;
+  demoCode?: string; // فقط برای حالت SMS_PROVIDER=console
 };
 
 export type VerifyState = {

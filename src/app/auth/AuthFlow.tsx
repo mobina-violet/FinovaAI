@@ -6,6 +6,7 @@ import { toLatinDigits } from "@/lib/format";
 import { sendOtpAction, verifyOtpAction } from "./actions";
 import type { SendState, VerifyState } from "./types";
 import Link from "next/link";
+
 const fa = new Intl.NumberFormat("fa-IR");
 
 const initialSend: SendState = {};
@@ -137,7 +138,21 @@ export default function AuthFlow() {
         </form>
 
         <p className="mt-6 text-center text-xs leading-6 text-muted">
-          ادامه دادن به معنی پذیرش قوانین و مقررات است.
+          ادامه دادن به معنی پذیرش{" "}
+          <Link
+            href="/terms"
+            target="_blank"
+            className="text-gold hover:underline">
+            قوانین و مقررات
+          </Link>{" "}
+          و{" "}
+          <Link
+            href="/privacy"
+            target="_blank"
+            className="text-gold hover:underline">
+            حریم خصوصی
+          </Link>{" "}
+          است.
         </p>
       </div>
     );
@@ -162,6 +177,18 @@ export default function AuthFlow() {
           ویرایش شماره
         </button>
       </p>
+
+      {/* فقط وقتی SMS_PROVIDER=console باشد از سرور می‌آید */}
+      {send.demoCode && (
+        <div className="mt-5 rounded-xl border border-gold/40 bg-gold/10 px-4 py-3 text-center">
+          <p className="text-xs text-muted">حالت دمو — کد تأیید:</p>
+          <p
+            dir="ltr"
+            className="mt-1 text-2xl font-bold tracking-[0.35em] text-gold">
+            {send.demoCode}
+          </p>
+        </div>
+      )}
 
       <form action={verifyAction} className="mt-8 space-y-4">
         <input type="hidden" name="phone" value={send.phone ?? ""} />
@@ -208,26 +235,6 @@ export default function AuthFlow() {
           action={sendAction}
         />
       </div>
-
-      {process.env.NODE_ENV !== "production" && (
-        <p className="mt-6 text-center text-xs leading-6 text-muted">
-          ادامه دادن به معنی پذیرش{" "}
-          <Link
-            href="/terms"
-            target="_blank"
-            className="text-gold hover:underline">
-            قوانین و مقررات
-          </Link>{" "}
-          و{" "}
-          <Link
-            href="/privacy"
-            target="_blank"
-            className="text-gold hover:underline">
-            حریم خصوصی
-          </Link>{" "}
-          است.
-        </p>
-      )}
     </div>
   );
 }

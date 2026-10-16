@@ -9,7 +9,7 @@ import type { SendState, VerifyState } from "./types";
 
 export async function sendOtpAction(
   prev: SendState,
-  formData: FormData
+  formData: FormData,
 ): Promise<SendState> {
   const phone = parseIranPhone(String(formData.get("phone") ?? ""));
   if (!phone) {
@@ -24,12 +24,13 @@ export async function sendOtpAction(
     phone,
     nonce: Date.now(),
     cooldown: result.cooldownSeconds,
+    demoCode: result.demoCode,
   };
 }
 
 export async function verifyOtpAction(
   _prev: VerifyState,
-  formData: FormData
+  formData: FormData,
 ): Promise<VerifyState> {
   const phone = parseIranPhone(String(formData.get("phone") ?? ""));
   const code = parseOtpCode(String(formData.get("code") ?? ""));
@@ -40,7 +41,7 @@ export async function verifyOtpAction(
   const result = await verifyOtp(phone, code);
   if (!result.ok) return { error: result.error };
 
-  // اگه کاربر بود وارد می‌شه، وگرنه همین‌جا ثبت‌نام می‌شه
+  // اگر کاربر بود وارد می‌شود، وگرنه همین‌جا ثبت‌نام می‌شود
   const user = await prisma.user.upsert({
     where: { phone },
     update: {},
