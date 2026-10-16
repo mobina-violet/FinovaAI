@@ -1,3 +1,5 @@
+import type { Draft } from "@/lib/entry-parser";
+
 export type SendState = {
   ok?: boolean;
   phone?: string;
@@ -13,6 +15,6 @@ export type VerifyState = {
 
 export type PreviewState = {
   error?: string;
-  draft?: unknown;
+  draft?: Draft;
   nonce?: number;
 };
