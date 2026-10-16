@@ -11,7 +11,8 @@ export default async function NewTransactionPage() {
     <div className="mx-auto max-w-2xl">
       <h1 className="text-xl font-bold">ثبت تراکنش جدید</h1>
       <p className="mt-1 text-sm text-muted">
-        درآمد یا هزینه‌ی خود را ثبت کنید. برای ثبت سریع‌تر می‌توانید از کادر «ثبت سریع» داشبورد هم استفاده کنید.
+        برای ثبت سریع‌تر می‌توانید از «دستیار هوشمند» و ثبت با جمله استفاده
+        کنید{" "}
       </p>
 
       <div className="glass mt-6 rounded-2xl p-6 sm:p-8">

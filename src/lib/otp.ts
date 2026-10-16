@@ -1,18 +1,18 @@
-/**منطق امنیتی اینجاست. کد هش ذخیره می‌شه (با HMAC و OTP_SECRET)، پس اگه دیتابیس لو بره کدها خوانا نیستن. */
+/** منطق امنیتی: کد با HMAC و OTP_SECRET هش می‌شود تا اگر دیتابیس لو برود خوانا نباشد. */
 import { createHmac, randomInt, timingSafeEqual } from "crypto";
 import { prisma } from "@/lib/prisma";
 import { sendOtpSms } from "@/lib/sms";
 
 const OTP_TTL_MS = 2 * 60 * 1000; // اعتبار کد: ۲ دقیقه
 const RESEND_COOLDOWN_MS = 60 * 1000; // فاصله‌ی دو ارسال: ۱ دقیقه
-const MAX_ATTEMPTS = 5; // تلاش اشتباه مجاز برای هر کد
-const MAX_SENDS_PER_HOUR = 5; // حداکثر ارسال در ساعت برای هر شماره
+const MAX_ATTEMPTS = 5;
+const MAX_SENDS_PER_HOUR = 5;
 const HOUR_MS = 60 * 60 * 1000;
 
 const fa = (n: number) => n.toLocaleString("fa-IR");
 
 type RequestResult =
-  | { ok: true; cooldownSeconds: number }
+  | { ok: true; cooldownSeconds: number; demoCode?: string }
   | { ok: false; error: string };
 
 type VerifyResult = { ok: true } | { ok: false; error: string };
@@ -21,6 +21,11 @@ function hashCode(phone: string, code: string): string {
   const secret = process.env.OTP_SECRET;
   if (!secret) throw new Error("OTP_SECRET در .env تنظیم نشده است");
   return createHmac("sha256", secret).update(`${phone}:${code}`).digest("hex");
+}
+
+function isConsoleProvider(): boolean {
+  const p = process.env.SMS_PROVIDER?.trim().replace(/^["']|["']$/g, "").trim();
+  return !p || p === "console";
 }
 
 export async function requestOtp(phone: string): Promise<RequestResult> {
@@ -52,9 +57,8 @@ export async function requestOtp(phone: string): Promise<RequestResult> {
     };
   }
 
-  const code = String(randomInt(100000, 1000000)); // رمزنگارانه امن (نه Math.random)
+  const code = String(randomInt(100000, 1000000));
 
-  // کدهای قبلی باطل می‌شن؛ فقط آخرین کد معتبره
   const record = await prisma.$transaction(async (tx) => {
     await tx.otpCode.updateMany({
       where: { phone, usedAt: null },
@@ -81,7 +85,11 @@ export async function requestOtp(phone: string): Promise<RequestResult> {
     };
   }
 
-  return { ok: true, cooldownSeconds: RESEND_COOLDOWN_MS / 1000 };
+  return {
+    ok: true,
+    cooldownSeconds: RESEND_COOLDOWN_MS / 1000,
+    ...(isConsoleProvider() ? { demoCode: code } : {}),
+  };
 }
 
 export async function verifyOtp(
@@ -123,7 +131,6 @@ export async function verifyOtp(
     };
   }
 
-  // مصرف اتمیک: جلوی استفاده‌ی دوباره از یک کد با دو درخواست همزمان رو می‌گیره
   const consumed = await prisma.otpCode.updateMany({
     where: { id: record.id, usedAt: null },
     data: { usedAt: new Date() },

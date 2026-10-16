@@ -6,15 +6,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import {
-  ArrowLeftRight,
   BarChart3,
-  FileText,
   LayoutDashboard,
   LogOut,
   Menu,
   PlusCircle,
   Settings,
-  TrendingUp,
+  Sparkles,
   X,
   type LucideIcon,
 } from "lucide-react";
@@ -30,10 +28,8 @@ const nav: NavItem[] = [
     icon: PlusCircle,
     href: "/dashboard/transactions/new",
   },
-  { label: "تراکنش‌ها", icon: ArrowLeftRight },
-  { label: "چک‌ها", icon: FileText },
-  { label: "پیش‌بینی مالی", icon: TrendingUp },
-  { label: "گزارش‌ها", icon: BarChart3 },
+  { label: "دستیار هوشمند", icon: Sparkles, href: "/dashboard/assistant" },
+  { label: "گزارش‌ها", icon: BarChart3, href: "/dashboard/reports" },
   { label: "تنظیمات", icon: Settings },
 ];
 
