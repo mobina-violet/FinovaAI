@@ -4,18 +4,8 @@ body {
   font-family: var(--font-sans);
   font-feature-settings: "kern";
 }
-
 .radley {
-  font-family: "Radley", serif;
-}
-
-/* فونت انگلیسی Radley */
-@font-face {
-  font-family: "Radley";
-  src: url("/fonts/Radley/Radley-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
+  font-family: var(--font-radley), serif;
 }
 @theme {
   --font-sans: var(--font-iransans), ui-sans-serif, system-ui, sans-serif;

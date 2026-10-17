@@ -1,4 +1,4 @@
-import type { Metadata ,Viewport } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
@@ -6,6 +6,14 @@ import "./globals.css";
 const iranSans = localFont({
   src: "../fonts/A-Iranian-Sans/Iranian Sans.ttf",
   variable: "--font-iransans",
+  weight: "400",
+  style: "normal",
+  display: "swap",
+});
+// فونت انگلیسی Radley (برای کلاس .radley)
+const radley = localFont({
+  src: "../fonts/Radley/Radley-Regular.ttf",
+  variable: "--font-radley",
   weight: "400",
   style: "normal",
   display: "swap",
@@ -50,7 +58,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fa" dir="rtl" className={iranSans.variable}>
+    <html
+      lang="fa"
+      dir="rtl"
+      className={`${iranSans.variable} ${radley.variable}`}>
       <body className="bg-bg font-sans text-fg antialiased">{children}</body>
     </html>
   );

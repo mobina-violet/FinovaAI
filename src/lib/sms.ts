@@ -9,7 +9,12 @@ export async function sendOtpSms(phone: string, code: string): Promise<void> {
 
   switch (provider) {
     case "console":
-      // حالت دمو: کد در لاگ سرور نوشته می‌شود (لوکال و Netlify)
+      // روی سرور واقعی فقط وقتی مجاز است که دمو را عمداً روشن کرده باشی
+      if (process.env.NODE_ENV === "production" && !isDemoOtp()) {
+        throw new Error(
+          "SMS_PROVIDER=console روی پروداکشن فقط با DEMO_OTP=true مجاز است",
+        );
+      }
       console.log(`\n[OTP DEMO] ${phone} → ${code}\n`);
       return;
 
@@ -19,6 +24,15 @@ export async function sendOtpSms(phone: string, code: string): Promise<void> {
     default:
       throw new Error(`SMS_PROVIDER ناشناخته است: ${provider}`);
   }
+}
+
+/**
+ * حالت دمو فقط با DEMO_OTP=true روشن می‌شود (پیش‌فرض: خاموش).
+ * وقتی روشن باشد، کد تأییدِ هر شماره روی صفحه نشان داده می‌شود؛
+ * یعنی هر کسی با دانستن شماره می‌تواند وارد آن حساب شود. فقط برای نمایش آزمایشی.
+ */
+export function isDemoOtp(): boolean {
+  return clean(process.env.DEMO_OTP)?.toLowerCase() === "true";
 }
 
 /** فاصله و کوتیشن‌های اضافه‌ی مقدارهای .env را پاک می‌کند */
